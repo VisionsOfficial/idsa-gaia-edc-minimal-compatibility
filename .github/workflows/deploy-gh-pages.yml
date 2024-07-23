@@ -22,8 +22,32 @@ jobs:
 
     - name: Merge main into gh-pages
       run: |
-        git merge origin/main --no-ff --no-edit
+        git merge origin/main --no-ff --no-edit --allow-unrelated-histories
 
+      
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        pip install mkdocs
+        pip install mkdocs-mermaid2-plugin
+        pip install mkdocs-material
+        pip install mkdocs-git-revisions-date-localized-plugin
+
+    - name: Build MkDocs
+      run: |
+        mkdocs build --clean --config-file mkdocs.yml
+        mv site/* .
+        rm -rf site
+
+    - name: Add Git files
+      run: |
+        git add .
+        git commit -m "[CI] Merge main into gh-pages"
+    
     - name: Push changes
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

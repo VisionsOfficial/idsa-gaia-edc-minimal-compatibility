@@ -1,0 +1,31 @@
+name: Merge main into gh-pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout main branch
+      uses: actions/checkout@v2
+      with:
+        ref: main
+
+    - name: Checkout gh-pages branch
+      run: |
+        git fetch origin
+        git checkout gh-pages
+
+    - name: Merge main into gh-pages
+      run: |
+        git merge origin/main --no-ff --no-edit
+
+    - name: Push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git push origin gh-pages

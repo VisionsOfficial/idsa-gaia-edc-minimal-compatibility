@@ -1,5 +1,5 @@
 site_name: PTX Compliance Research
-theme: readthedocs
+theme: material
 nav:
   - Home: index.md
   - Catalog:

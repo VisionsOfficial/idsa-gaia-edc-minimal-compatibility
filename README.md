@@ -23,3 +23,9 @@ pip install mkdocs-material
 ```bash
 pip install mkdocs-git-revision-date-localized-plugin
 ```
+
+### Install using requirements.txt
+You can also install everything at once by running
+```bash
+pip install -r requirements.txt
+```
